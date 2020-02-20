@@ -6,7 +6,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 public class HibernateServiceTest {
     @Test
@@ -20,7 +22,7 @@ public class HibernateServiceTest {
     public void testMaterials() {
         Session session = HibernateService.getSessionFactory().openSession();
         session.beginTransaction();
-        Material material = new Material((long) 1, "Carbon", new ArrayList<Exhibit>());
+        Material material = getMaterial();
         System.out.println(material.toString());
         session.save(material);
         session.delete(material);
@@ -32,7 +34,7 @@ public class HibernateServiceTest {
     public void testWorker() {
         Session session = HibernateService.getSessionFactory().openSession();
         session.beginTransaction();
-        Worker worker = new Worker((long) 1, Positions.TOURGUIDE, "Taras", "Kovaliv");
+        Worker worker = getWorker();
         System.out.println(worker.toString());
         session.save(worker);
         session.delete(worker);
@@ -44,7 +46,7 @@ public class HibernateServiceTest {
     public void testAuthor() {
         Session session = HibernateService.getSessionFactory().openSession();
         session.beginTransaction();
-        Author author = new Author((long) 1, "Taras", "Kovaliv", new ArrayList<Exhibit>());
+        Author author = getAuthor();
         System.out.println(author.toString());
         session.save(author);
         session.delete(author);
@@ -56,7 +58,7 @@ public class HibernateServiceTest {
     public void testRoom() {
         Session session = HibernateService.getSessionFactory().openSession();
         session.beginTransaction();
-        Room room = new Room((long) 1, 305, 3, new ArrayList<Exhibit>());
+        Room room = getRoom();
         System.out.println(room.toString());
         session.save(room);
         session.delete(room);
@@ -68,10 +70,12 @@ public class HibernateServiceTest {
     public void testExhibit() {
         Session session = HibernateService.getSessionFactory().openSession();
         session.beginTransaction();
-        Material material = new Material((long) 1, "Carbon", new ArrayList<Exhibit>());
-        Author author = new Author((long) 1, "Taras", "Kovaliv", new ArrayList<Exhibit>());
-        Room room = new Room((long) 1, 305, 3, new ArrayList<Exhibit>());
-        Exhibit exhibit = new Exhibit((long) 1, "Екпонат", material, author, room);
+        Material material = getMaterial();
+        Author author = getAuthor();
+        Room room = getRoom();
+        List<Material> list = new ArrayList<>();
+        list.add(material);
+        Exhibit exhibit = new Exhibit((long) 1, "Екпонат", list, author, room);
         System.out.println(material.toString());
         System.out.println(author.toString());
         System.out.println(room.toString());
@@ -87,4 +91,41 @@ public class HibernateServiceTest {
         session.getTransaction().commit();
         session.close();
     }
+
+    @Test
+    public void testExcursion() {
+        Session session = HibernateService.getSessionFactory().openSession();
+        session.beginTransaction();
+        Worker worker = getWorker();
+        Room room = getRoom();
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(room);
+        Excursion excursion = new Excursion((long) 1, "Екскурсія", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), worker, rooms);
+        System.out.println(excursion.toString());
+        session.save(room);
+        session.save(worker);
+        session.save(excursion);
+        session.delete(excursion);
+        session.delete(worker);
+        session.delete(room);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public static Worker getWorker() {
+        return new Worker((long) 1, Positions.TOURGUIDE, "Taras", "Kovaliv", new ArrayList<Excursion>());
+    }
+
+    public static Room getRoom() {
+        return new Room((long) 1, 305, 3, new ArrayList<Exhibit>(), new ArrayList<Excursion>());
+    }
+
+    public static Author getAuthor() {
+        return new Author((long) 1, "Taras", "Kovaliv", new ArrayList<Exhibit>());
+    }
+
+    public static Material getMaterial() {
+        return new Material((long) 1, "Carbon", new ArrayList<Exhibit>());
+    }
+
 }

@@ -5,14 +5,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "exhibits")
-public class Exhibit {
+@Table(name = "excursions")
+public class Excursion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,25 +22,22 @@ public class Exhibit {
     @Column(name = "name", length = 50)
     private String name;
 
+    @Column(name = "time_start")
+    private Timestamp time_start;
+
+    @Column(name = "time_end")
+    private Timestamp time_end;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    private Material material;
+    private Worker worker;
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    @JoinTable(name = "material_exhibit",
-            joinColumns = @JoinColumn(name = "exhibit_id"),
-            inverseJoinColumns = @JoinColumn(name = "material_id")
+    @JoinTable(name = "excursion_room",
+            joinColumns = @JoinColumn(name = "excursion_id"),
+            inverseJoinColumns = @JoinColumn(name = "room_id")
     )
-    private List<Material> materials;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Author author;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Room room;
-
-
-
+    private List<Room> rooms;
 }

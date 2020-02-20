@@ -22,6 +22,6 @@ public class Material {
     @Column(unique = true, length = 50)
     private String name;
 
-    @OneToMany(mappedBy = "material", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "materials")
     private List<Exhibit> exhibits = new ArrayList<>();
 }
