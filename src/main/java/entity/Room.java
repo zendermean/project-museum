@@ -8,19 +8,21 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "materials")
-public class Material {
-
+@Table(name = "rooms")
+public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, length = 50)
-    private String name;
+    @Column(name = "number", unique = true)
+    private Integer number;
+
+    @Column(name = "floor")
+    private Integer floor;
 
     @OneToMany(mappedBy = "material", fetch = FetchType.LAZY)
     private List<Exhibit> exhibits = new ArrayList<>();

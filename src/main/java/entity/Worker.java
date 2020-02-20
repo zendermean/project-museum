@@ -1,27 +1,29 @@
 package entity;
 
+import entity.enums.Positions;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
-@Entity
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "materials")
-public class Material {
+@Table(name = "workers")
+public class Worker {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, length = 50)
+    @Column(name = "position")
+    private Positions position;
+
+    @Column(name = "name", length = 50)
     private String name;
 
-    @OneToMany(mappedBy = "material", fetch = FetchType.LAZY)
-    private List<Exhibit> exhibits = new ArrayList<>();
+    @Column(name = "surname", length = 50)
+    private String surname;
 }
