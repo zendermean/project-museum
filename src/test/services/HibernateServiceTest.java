@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class HibernateServiceTest {
     public void testWorker() {
         Session session = HibernateService.getSessionFactory().openSession();
         session.beginTransaction();
-        Worker worker = new Worker((long) 1, Positions.TOURGUIDE, "Taras", "Kovaliv");
+        Worker worker = new Worker((long) 1, Positions.TOURGUIDE, "Taras", "Kovaliv", new ArrayList<Excursion>());
         System.out.println(worker.toString());
         session.save(worker);
         session.delete(worker);
@@ -57,7 +58,7 @@ public class HibernateServiceTest {
     public void testRoom() {
         Session session = HibernateService.getSessionFactory().openSession();
         session.beginTransaction();
-        Room room = new Room((long) 1, 305, 3, new ArrayList<Exhibit>());
+        Room room = new Room((long) 1, 305, 3, new ArrayList<Exhibit>(), new ArrayList<Excursion>());
         System.out.println(room.toString());
         session.save(room);
         session.delete(room);
@@ -71,7 +72,7 @@ public class HibernateServiceTest {
         session.beginTransaction();
         Material material = new Material((long) 1, "Carbon", new ArrayList<Exhibit>());
         Author author = new Author((long) 1, "Taras", "Kovaliv", new ArrayList<Exhibit>());
-        Room room = new Room((long) 1, 305, 3, new ArrayList<Exhibit>());
+        Room room = new Room((long) 1, 305, 3, new ArrayList<Exhibit>(), new ArrayList<Excursion>());
         List<Material> list = new ArrayList<>();
         list.add(material);
         Exhibit exhibit = new Exhibit((long) 1, "Екпонат", list, author, room);
@@ -86,6 +87,26 @@ public class HibernateServiceTest {
         session.delete(exhibit);
         session.delete(material);
         session.delete(author);
+        session.delete(room);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Test
+    public void testExcursion() {
+        Session session = HibernateService.getSessionFactory().openSession();
+        session.beginTransaction();
+        Worker worker = new Worker((long) 1, Positions.TOURGUIDE, "Taras", "Kovaliv", new ArrayList<Excursion>());
+        Room room = new Room((long) 1, 305, 3, new ArrayList<Exhibit>(), new ArrayList<Excursion>());
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(room);
+        Excursion excursion = new Excursion((long) 1, "Екскурсія", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), worker, rooms);
+        System.out.println(excursion.toString());
+        session.save(room);
+        session.save(worker);
+        session.save(excursion);
+        session.delete(excursion);
+        session.delete(worker);
         session.delete(room);
         session.getTransaction().commit();
         session.close();
