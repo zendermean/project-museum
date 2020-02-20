@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 public class HibernateServiceTest {
     @Test
-    public void testSessionBuilder(){
+    public void testSessionBuilder() {
         SessionFactory sessionFactory = HibernateService.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.close();
