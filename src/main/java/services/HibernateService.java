@@ -1,9 +1,6 @@
 package services;
 
-import entity.Author;
-import entity.Material;
-import entity.Room;
-import entity.Worker;
+import entity.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -22,6 +19,7 @@ public class HibernateService {
             configuration.addAnnotatedClass(Worker.class);
             configuration.addAnnotatedClass(Author.class);
             configuration.addAnnotatedClass(Room.class);
+            configuration.addAnnotatedClass(Exhibit.class);
 
             Properties properties = new Properties();
             properties.put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");

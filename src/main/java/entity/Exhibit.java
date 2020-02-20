@@ -5,16 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "authors")
-public class Author {
-
+@Table(name = "exhibits")
+public class Exhibit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,9 +19,13 @@ public class Author {
     @Column(name = "name", length = 50)
     private String name;
 
-    @Column(name = "surname", length = 50)
-    private String surname;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Material material;
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private List<Exhibit> exhibits = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Author author;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Room room;
+
 }
