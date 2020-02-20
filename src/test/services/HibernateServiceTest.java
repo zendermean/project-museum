@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HibernateServiceTest {
     @Test
@@ -71,7 +72,9 @@ public class HibernateServiceTest {
         Material material = new Material((long) 1, "Carbon", new ArrayList<Exhibit>());
         Author author = new Author((long) 1, "Taras", "Kovaliv", new ArrayList<Exhibit>());
         Room room = new Room((long) 1, 305, 3, new ArrayList<Exhibit>());
-        Exhibit exhibit = new Exhibit((long) 1, "Екпонат", material, author, room);
+        List<Material> list = new ArrayList<>();
+        list.add(material);
+        Exhibit exhibit = new Exhibit((long) 1, "Екпонат", list, author, room);
         System.out.println(material.toString());
         System.out.println(author.toString());
         System.out.println(room.toString());

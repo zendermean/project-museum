@@ -24,6 +24,6 @@ public class Room {
     @Column(name = "floor")
     private Integer floor;
 
-    @OneToMany(mappedBy = "material", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
     private List<Exhibit> exhibits = new ArrayList<>();
 }
