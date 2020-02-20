@@ -39,6 +39,6 @@ public class Exhibit {
     @ManyToOne(fetch = FetchType.LAZY)
     private Room room;
 
-
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Technique technique;
 }
