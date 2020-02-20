@@ -75,7 +75,7 @@ public class HibernateServiceTest {
         Room room = getRoom();
         List<Material> list = new ArrayList<>();
         list.add(material);
-        Exhibit exhibit = new Exhibit((long) 1, "Екпонат", list, author, room);
+        Exhibit exhibit = new Exhibit((long) 1, "Екпонат", list, author, room, technique);
         System.out.println(material.toString());
         System.out.println(author.toString());
         System.out.println(room.toString());
@@ -98,16 +98,20 @@ public class HibernateServiceTest {
         session.beginTransaction();
         Worker worker = getWorker();
         Room room = getRoom();
+        Technique technique = getTechnique();
         List<Room> rooms = new ArrayList<>();
         rooms.add(room);
         Excursion excursion = new Excursion((long) 1, "Екскурсія", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), worker, rooms);
         System.out.println(excursion.toString());
+        System.out.println(technique.toString());
         session.save(room);
         session.save(worker);
         session.save(excursion);
+        session.save(technique);
         session.delete(excursion);
         session.delete(worker);
         session.delete(room);
+        session.delete(technique);
         session.getTransaction().commit();
         session.close();
     }
@@ -128,4 +132,7 @@ public class HibernateServiceTest {
         return new Material((long) 1, "Carbon", new ArrayList<Exhibit>());
     }
 
+    public static Technique getTechnique() {
+        return new Technique((long) 1, "Gotic", new ArrayList<Exhibit>());
+    }
 }

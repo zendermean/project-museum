@@ -21,6 +21,7 @@ public class HibernateService {
             configuration.addAnnotatedClass(Room.class);
             configuration.addAnnotatedClass(Exhibit.class);
             configuration.addAnnotatedClass(Excursion.class);
+            configuration.addAnnotatedClass(Technique.class);
 
             Properties properties = new Properties();
             properties.put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
