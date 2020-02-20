@@ -20,9 +20,6 @@ public class Exhibit {
     @Column(name = "name", length = 50)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Material material;
-
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
@@ -33,8 +30,15 @@ public class Exhibit {
     )
     private List<Material> materials;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Author author;
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "author_exhibit",
+            joinColumns = @JoinColumn(name = "exhibit_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
+    private List<Author> authors;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Room room;
