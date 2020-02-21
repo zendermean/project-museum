@@ -20,7 +20,7 @@ public class WorkerRepo extends Repo {
         Query query = session.createQuery(hql, Worker.class);
 
         List<Worker> results = query.getResultList();
-        logger.warn(results.toString());
+        logger.info(results.toString());
 
         session.getTransaction().commit();
         session.close();
