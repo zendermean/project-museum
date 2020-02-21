@@ -6,7 +6,7 @@ import services.HibernateService;
 
 public class Repo {
 
-    private SessionFactory sessionFactory;
+    protected SessionFactory sessionFactory;
 
     public Repo() {
         sessionFactory = HibernateService.getSessionFactory();
