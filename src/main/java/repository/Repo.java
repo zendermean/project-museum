@@ -15,7 +15,9 @@ public class Repo {
     public void save(Object obj) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+
         session.save(obj);
+
         session.getTransaction().commit();
         session.close();
     }
@@ -23,7 +25,9 @@ public class Repo {
     public void delete(Object obj) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+
         session.delete(obj);
+
         session.getTransaction().commit();
         session.close();
     }
@@ -31,7 +35,9 @@ public class Repo {
     public void update(Object obj) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+
         session.saveOrUpdate(obj);
+
         session.getTransaction().commit();
         session.close();
     }
