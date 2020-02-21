@@ -21,8 +21,7 @@ public class Exhibit {
     private String name;
 
     @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
+            CascadeType.PERSIST
     })
     @JoinTable(name = "material_exhibit",
             joinColumns = @JoinColumn(name = "exhibit_id"),
@@ -31,8 +30,7 @@ public class Exhibit {
     private List<Material> materials;
 
     @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
+            CascadeType.PERSIST
     })
     @JoinTable(name = "author_exhibit",
             joinColumns = @JoinColumn(name = "exhibit_id"),
@@ -40,9 +38,9 @@ public class Exhibit {
     )
     private List<Author> authors;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     private Room room;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     private Technique technique;
 }
