@@ -33,6 +33,9 @@ public class TestHibernate {
         repo.save(worker);
 
         WorkerRepo workerRepo = new WorkerRepo();
+        Worker worker1 = workerRepo.getByNameAndSurname(worker.getName(), worker.getSurname());
+        logger.info(worker1);
+        logger.info(workerRepo.getById(worker1.getId()));
         logger.info(workerRepo.getTourguides().toString());
 
         repo.delete(worker);
