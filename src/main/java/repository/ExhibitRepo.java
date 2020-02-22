@@ -1,10 +1,12 @@
 package repository;
 
+import entity.Author;
 import entity.Exhibit;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.jboss.logging.Logger;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ExhibitRepo extends Repo {
@@ -47,11 +49,36 @@ public class ExhibitRepo extends Repo {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        String hql = "SELECT e.name, r.floor, r.number FROM Exhibit e INNER JOIN Room r on e.room = r.id ORDER BY r.id DESC";
+        String hql = "SELECT e.name, r.floor, r.number FROM Exhibit e " +
+                "INNER JOIN Room r on e.room = r.id ORDER BY r.id DESC";
         Query query = session.createQuery(hql);
 
         List<Object[]> results = query.getResultList();
+        logger.info("Name of Exhibit\t floor and\tnumber of room");
+        for (Object[] arr : results) {
+            logger.info(Arrays.toString(arr));
+        }
+        session.getTransaction().commit();
+        session.close();
 
+        return results;
+    }
+
+    public List<Object[]> exhibitsByAuthor(Author author) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String hql = "SELECT e.name, r.floor, r.number " +
+                "FROM (SELECT ex.name as name, ex.room as room FROM Exhibit ex JOIN ex.authors a WHERE a.id = :id) e " +
+                "INNER JOIN Room r on e.room = r.id ";
+        Query query = session.createQuery(hql);
+        query.setParameter("id", author.getId());
+
+        List<Object[]> results = query.getResultList();
+        logger.info("Name of Exhibit\t floor and\tnumber of room");
+        for (Object[] arr : results) {
+            logger.info(Arrays.toString(arr));
+        }
         session.getTransaction().commit();
         session.close();
 

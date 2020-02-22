@@ -92,10 +92,22 @@ public class TestHibernate {
                 logger.info(Arrays.toString(arr));
             }
 
+            results = statisticRepo.exhibitByMaterial();
+            for (Object[] arr : results) {
+                logger.info(Arrays.toString(arr));
+            }
+
             results = exhibitRepo.exhibitsByRoom();
             for (Object[] arr : results) {
                 logger.info(Arrays.toString(arr));
             }
+
+//            AuthorRepo authorRepo = new AuthorRepo();
+//            Author author = authorRepo.getByNameAndSurname(authors.get(0).getName(), authors.get(0).getSurname());
+//            results = exhibitRepo.exhibitsByAuthor(author);
+//            for (Object[] arr : results) {
+//                logger.info(Arrays.toString(arr));
+//            }
 
 //            Exhibit exhibit1 = exhibitRepo.getByName(exhibit.getName());
 //            logger.info(exhibit1.toString());
