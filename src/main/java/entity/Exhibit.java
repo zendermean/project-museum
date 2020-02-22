@@ -20,27 +20,23 @@ public class Exhibit {
     @Column(name = "name", length = 50)
     private String name;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST
-    })
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "material_exhibit",
             joinColumns = @JoinColumn(name = "exhibit_id"),
             inverseJoinColumns = @JoinColumn(name = "material_id")
     )
     private List<Material> materials;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST
-    })
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "author_exhibit",
             joinColumns = @JoinColumn(name = "exhibit_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
     private List<Author> authors;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     private Room room;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     private Technique technique;
 }

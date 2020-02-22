@@ -25,6 +25,6 @@ public class Author {
     @Column(name = "surname", length = 50)
     private String surname;
 
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
     private List<Exhibit> exhibits = new ArrayList<>();
 }
