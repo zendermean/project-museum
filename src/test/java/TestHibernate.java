@@ -17,7 +17,8 @@ public class TestHibernate {
     @Test
     public void testMaterials() {
         Material material = getMaterial();
-        logger.info(material.toString());
+        material.equals(getMaterial());
+        logger.info(material.toString() + material.hashCode());
 
         repo.save(material);
         repo.delete(material);
@@ -26,11 +27,15 @@ public class TestHibernate {
     @Test
     public void testWorker() {
         Worker worker = getWorker();
-        logger.info(worker.toString());
+        worker.equals(getWorker());
+        logger.info(worker.toString() + hashCode());
 
         repo.save(worker);
 
         WorkerRepo workerRepo = new WorkerRepo();
+        Worker worker1 = workerRepo.getByNameAndSurname(worker.getName(), worker.getSurname());
+        logger.info(worker1);
+        logger.info(workerRepo.getById(worker1.getId()));
         logger.info(workerRepo.getTourguides().toString());
 
         repo.delete(worker);
@@ -40,7 +45,8 @@ public class TestHibernate {
     public void testAuthor() {
         AuthorRepo authorRepo = new AuthorRepo();
         Author author = getAuthor();
-        logger.info(author.toString());
+        author.equals(getAuthor());
+        logger.info(author.toString() + author.hashCode());
 
         repo.save(author);
 
@@ -57,6 +63,7 @@ public class TestHibernate {
     @Test
     public void testRoom() {
         Room room = getRoom();
+        room.equals(getRoom());
         logger.info(room.toString());
 
         repo.save(room);
@@ -72,13 +79,16 @@ public class TestHibernate {
         List<Author> authors = new ArrayList<>();
 
         Technique technique = getTechnique();
+        technique.equals(getTechnique());
+        technique.hashCode();
         authors.add(getAuthor());
         list.add(getMaterial());
         Room room = getRoom();
 
         Exhibit exhibit = new Exhibit((long) 1, "Екпонат", list, authors, room, technique);
+        exhibit.equals(new Exhibit((long) 1, "Екпонат", list, authors, room, technique));
 
-        logger.info(exhibit.toString());
+        logger.info(exhibit.toString() + exhibit.hashCode());
 
         repo.save(authors.get(0));
         repo.save(list.get(0));
@@ -130,7 +140,8 @@ public class TestHibernate {
         rooms.add(getRoom());
 
         Excursion excursion = new Excursion((long) 1, "Екскурсія", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), worker, rooms);
-        logger.info(excursion.toString());
+        excursion.equals(new Excursion((long) 1, "Екскурсія", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), worker, rooms));
+        logger.info(excursion.toString() + excursion.hashCode());
 
         repo.save(rooms.get(0));
         repo.save(worker);
