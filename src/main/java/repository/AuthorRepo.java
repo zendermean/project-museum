@@ -3,8 +3,11 @@ package repository;
 import entity.Author;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.jboss.logging.Logger;
 
 public class AuthorRepo extends Repo {
+
+    final static Logger logger = Logger.getLogger(AuthorRepo.class);
 
     public Author getById(Long id) {
         Session session = sessionFactory.openSession();
@@ -15,7 +18,7 @@ public class AuthorRepo extends Repo {
         query.setParameter("id", id);
 
         Author author = (Author) query.uniqueResult();
-        System.out.println("Getted " + author.toString());
+        logger.info("Getted -" + author.toString());
 
         session.getTransaction().commit();
         session.close();
@@ -33,7 +36,7 @@ public class AuthorRepo extends Repo {
         query.setParameter("name", name);
 
         Author author = (Author) query.uniqueResult();
-        System.out.println("Getted " + author.toString());
+        logger.info("Getted -" + author.toString());
 
         session.getTransaction().commit();
         session.close();

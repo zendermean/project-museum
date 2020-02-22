@@ -2,11 +2,14 @@ package repository;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.jboss.logging.Logger;
 import services.HibernateService;
 
 public class Repo {
 
     protected SessionFactory sessionFactory;
+
+    final static Logger logger = Logger.getLogger(Repo.class);
 
     public Repo() {
         sessionFactory = HibernateService.getSessionFactory();
@@ -17,6 +20,7 @@ public class Repo {
         session.beginTransaction();
 
         session.save(obj);
+        logger.info("Saved -" + obj.toString());
 
         session.getTransaction().commit();
         session.close();
@@ -27,6 +31,7 @@ public class Repo {
         session.beginTransaction();
 
         session.delete(obj);
+        logger.info("Deleted -" + obj.toString());
 
         session.getTransaction().commit();
         session.close();
@@ -37,6 +42,7 @@ public class Repo {
         session.beginTransaction();
 
         session.saveOrUpdate(obj);
+        logger.info("Updated -" + obj.toString());
 
         session.getTransaction().commit();
         session.close();
