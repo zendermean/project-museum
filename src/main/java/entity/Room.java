@@ -27,6 +27,6 @@ public class Room {
     @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
     private List<Exhibit> exhibits = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "rooms")
+    @ManyToMany(mappedBy = "rooms", fetch = FetchType.EAGER)
     private List<Excursion> excursions = new ArrayList<>();
 }

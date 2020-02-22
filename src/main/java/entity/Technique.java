@@ -21,6 +21,6 @@ public class Technique {
     @Column(unique = true, length = 20)
     private String name;
 
-    @OneToMany(mappedBy = "technique")
+    @OneToMany(mappedBy = "technique", fetch = FetchType.EAGER)
     private List<Exhibit> exhibits = new ArrayList<>();
 }

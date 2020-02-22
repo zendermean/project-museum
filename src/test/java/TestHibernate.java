@@ -1,121 +1,132 @@
 import entity.*;
 import entity.enums.Positions;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
-import services.HibernateService;
+import repository.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TestHibernate {
+    private Repo repo = new Repo();
 
-    @Test
-    public void testSesionBuilder() {
-        SessionFactory sessionFactory = HibernateService.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.close();
-    }
+    final static Logger logger = Logger.getLogger(TestHibernate.class);
 
     @Test
     public void testMaterials() {
-        Session session = HibernateService.getSessionFactory().openSession();
-        session.beginTransaction();
         Material material = getMaterial();
-        System.out.println(material.toString());
-        session.save(material);
-        session.delete(material);
-        session.getTransaction().commit();
-        session.close();
+        logger.info(material.toString());
+
+        repo.save(material);
+        repo.delete(material);
     }
 
     @Test
     public void testWorker() {
-        Session session = HibernateService.getSessionFactory().openSession();
-        session.beginTransaction();
         Worker worker = getWorker();
-        System.out.println(worker.toString());
-        session.save(worker);
-        session.delete(worker);
-        session.getTransaction().commit();
-        session.close();
+        logger.info(worker.toString());
+
+        repo.save(worker);
+
+        WorkerRepo workerRepo = new WorkerRepo();
+        logger.info(workerRepo.getTourguides().toString());
+
+        repo.delete(worker);
     }
 
     @Test
     public void testAuthor() {
-        Session session = HibernateService.getSessionFactory().openSession();
-        session.beginTransaction();
+        AuthorRepo authorRepo = new AuthorRepo();
         Author author = getAuthor();
-        System.out.println(author.toString());
-        session.save(author);
-        session.delete(author);
-        session.getTransaction().commit();
-        session.close();
+        logger.info(author.toString());
+
+        repo.save(author);
+
+        try {
+            Author author1 = authorRepo.getByNameAndSurname(author.getName(), author.getSurname());
+            logger.info(author1.toString());
+            author1 = authorRepo.getById(author1.getId());
+            logger.info(author1.toString());
+        } finally {
+            repo.delete(author);
+        }
     }
 
     @Test
     public void testRoom() {
-        Session session = HibernateService.getSessionFactory().openSession();
-        session.beginTransaction();
         Room room = getRoom();
-        System.out.println(room.toString());
-        session.save(room);
-        session.delete(room);
-        session.getTransaction().commit();
-        session.close();
+        logger.info(room.toString());
+
+        repo.save(room);
+        room.setFloor(2);
+        repo.update(room);
+        repo.delete(room);
     }
 
     @Test
     public void testExhibit() {
-        Session session = HibernateService.getSessionFactory().openSession();
-        session.beginTransaction();
-        Material material = getMaterial();
-        Author author = getAuthor();
-        Room room = getRoom();
-        Technique technique = getTechnique();
+        ExhibitRepo exhibitRepo = new ExhibitRepo();
         List<Material> list = new ArrayList<>();
-        list.add(material);
         List<Author> authors = new ArrayList<>();
-        authors.add(author);
+
+        Technique technique = getTechnique();
+        authors.add(getAuthor());
+        list.add(getMaterial());
+        Room room = getRoom();
+
         Exhibit exhibit = new Exhibit((long) 1, "Екпонат", list, authors, room, technique);
-        System.out.println(material.toString());
-        System.out.println(technique.toString());
-        System.out.println(author.toString());
-        System.out.println(room.toString());
-        System.out.println(exhibit.toString());
-        session.save(material);
-        session.save(author);
-        session.save(technique);
-        session.save(room);
-        session.save(exhibit);
-        session.delete(exhibit);
-        session.delete(material);
-        session.delete(author);
-        session.delete(technique);
-        session.delete(room);
-        session.getTransaction().commit();
-        session.close();
+
+        logger.info(exhibit.toString());
+
+        repo.save(authors.get(0));
+        repo.save(list.get(0));
+        repo.save(technique);
+        repo.save(room);
+        repo.save(exhibit);
+        try {
+            StatisticRepo statisticRepo = new StatisticRepo();
+            List<Object[]> results = statisticRepo.exhibitByTechnique();
+            for (Object[] arr : results) {
+                logger.info(Arrays.toString(arr));
+            }
+
+            results = exhibitRepo.exhibitsByRoom();
+            for (Object[] arr : results) {
+                logger.info(Arrays.toString(arr));
+            }
+
+//            Exhibit exhibit1 = exhibitRepo.getByName(exhibit.getName());
+//            logger.info(exhibit1.toString());
+//            logger.info(exhibitRepo.getById(exhibit1.getId()));
+
+        } finally {
+            repo.delete(exhibit);
+            repo.delete(authors.get(0));
+            repo.delete(list.get(0));
+            repo.delete(technique);
+            repo.delete(room);
+        }
     }
 
     @Test
     public void testExcursion() {
-        Session session = HibernateService.getSessionFactory().openSession();
-        session.beginTransaction();
-        Worker worker = getWorker();
-        Room room = getRoom();
+
         List<Room> rooms = new ArrayList<>();
-        rooms.add(room);
+        Worker worker = getWorker();
+        rooms.add(getRoom());
+
         Excursion excursion = new Excursion((long) 1, "Екскурсія", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), worker, rooms);
-        System.out.println(excursion.toString());
-        session.save(room);
-        session.save(worker);
-        session.save(excursion);
-        session.delete(excursion);
-        session.delete(worker);
-        session.delete(room);
-        session.getTransaction().commit();
-        session.close();
+        logger.info(excursion.toString());
+
+        repo.save(rooms.get(0));
+        repo.save(worker);
+        repo.save(excursion);
+
+        repo.delete(excursion);
+        repo.delete(rooms.get(0));
+        repo.delete(worker);
     }
 
     public static Worker getWorker() {
@@ -134,8 +145,8 @@ public class TestHibernate {
         return new Material((long) 1, "Carbon", new ArrayList<Exhibit>());
     }
 
-    public static Technique getTechnique(){
-        return new Technique((long)1, "Gotic", new ArrayList<Exhibit>());
+    public static Technique getTechnique() {
+        return new Technique((long) 1, "Gotic", new ArrayList<Exhibit>());
     }
 
 }

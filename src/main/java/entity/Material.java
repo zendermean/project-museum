@@ -22,6 +22,6 @@ public class Material {
     @Column(unique = true, length = 50)
     private String name;
 
-    @ManyToMany(mappedBy = "materials")
+    @ManyToMany(mappedBy = "materials", fetch = FetchType.EAGER)
     private List<Exhibit> exhibits = new ArrayList<>();
 }

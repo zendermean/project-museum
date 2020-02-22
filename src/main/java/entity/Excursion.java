@@ -28,7 +28,7 @@ public class Excursion {
     @Column(name = "time_end")
     private Timestamp time_end;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Worker worker;
 
     @ManyToMany(cascade = {
