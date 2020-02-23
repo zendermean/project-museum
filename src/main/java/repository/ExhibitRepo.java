@@ -45,6 +45,22 @@ public class ExhibitRepo extends Repo {
         return exhibit;
     }
 
+    public List<Exhibit> getAll() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String hql = "SELECT E FROM Exhibit E";
+        Query query = session.createQuery(hql, Exhibit.class);
+
+        List<Exhibit> list = query.getResultList();
+        logger.info("Getted - " + list.toString());
+
+        session.getTransaction().commit();
+        session.close();
+
+        return list;
+    }
+
     public List<Object[]> exhibitsByRoom() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
