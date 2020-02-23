@@ -26,15 +26,17 @@ public class HibernateService {
             Properties properties = new Properties();
             properties.put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
 
-            properties.put("hibernate.connection.url", "jdbc:mysql://db4free.net:3306/museum5");
-            properties.put("hibernate.connection.username", "taras1111");
-            properties.put("hibernate.connection.password", "taras1111");
+            properties.put("hibernate.connection.url", "jdbc:mysql://museum.mysql.database.azure.com:3306/museum5");
+            properties.put("hibernate.connection.username", "taras@museum");
+            properties.put("hibernate.connection.password", "1111Green");
             properties.put("hibernate.current_session_context_class", "thread");
 
             configuration.setProperties(properties);
 
             configuration.setProperty("hibernate.hbm2ddl.auto", "update");
             configuration.setProperty("hibernate.show_sql", "true");
+            configuration.setProperty("useSSL", "true");
+            configuration.setProperty("requireSSL", "false");
             configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
