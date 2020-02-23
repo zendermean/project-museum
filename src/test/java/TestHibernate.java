@@ -1,4 +1,3 @@
-/*
 import entity.*;
 import entity.enums.Positions;
 import org.jboss.logging.Logger;
@@ -174,4 +173,3 @@ public class TestHibernate {
     }
 
 }
-*/
