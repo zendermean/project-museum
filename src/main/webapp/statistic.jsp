@@ -11,7 +11,8 @@
     <body>
         <h2>Statistic by Technique</h2>
         <c:forEach items="${list}" var="item">
-            <p>${item}</p><br>
+            <p>${item[0]}</p>
+            <p>${item[1]}</p><br>
         </c:forEach>
     </body>
 </html>
