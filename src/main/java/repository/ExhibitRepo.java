@@ -84,7 +84,8 @@ public class ExhibitRepo extends Repo {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        String hql = "SELECT e.name, r.floor, r.number FROM (SELECT ex.name as name, ex.room as room FROM Exhibit ex JOIN ex.authors a WHERE a.id = :id) e " +
+        String hql = "SELECT e.name, r.floor, r.number " +
+                "FROM (SELECT ex.name as name, ex.room as room FROM Exhibit ex JOIN ex.authors a WHERE a.id = :id) e " +
                 "INNER JOIN Room r on e.room = r.id ";
         Query query = session.createQuery(hql);
         query.setParameter("id", author.getId());
@@ -99,5 +100,4 @@ public class ExhibitRepo extends Repo {
 
         return results;
     }
-
 }
