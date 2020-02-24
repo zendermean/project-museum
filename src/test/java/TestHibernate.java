@@ -118,7 +118,6 @@ public class TestHibernate {
 //            for (Object[] arr : results) {
 //                logger.info(Arrays.toString(arr));
 //            }
-
 //            Exhibit exhibit1 = exhibitRepo.getByName(exhibit.getName());
 //            logger.info(exhibit1.toString());
 //            logger.info(exhibitRepo.getById(exhibit1.getId()));
@@ -139,6 +138,7 @@ public class TestHibernate {
         Worker worker = getWorker();
         rooms.add(getRoom());
 
+        Timestamp timeStart = new Timestamp(System.currentTimeMillis());
         Excursion excursion = new Excursion((long) 1, "Екскурсія", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), worker, rooms);
         excursion.equals(new Excursion((long) 1, "Екскурсія", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), worker, rooms));
         logger.info(excursion.toString() + excursion.hashCode());
@@ -146,6 +146,10 @@ public class TestHibernate {
         repo.save(rooms.get(0));
         repo.save(worker);
         repo.save(excursion);
+
+        ExcursionRepo excursionRepo = new ExcursionRepo();
+        Timestamp timeEnd = new Timestamp(System.currentTimeMillis());
+        logger.info("Count " + excursionRepo.countExcursions(timeStart, timeEnd));
 
         repo.delete(excursion);
         repo.delete(rooms.get(0));
