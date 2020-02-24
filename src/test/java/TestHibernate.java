@@ -112,16 +112,16 @@ public class TestHibernate {
                 logger.info(Arrays.toString(arr));
             }
 
-//            AuthorRepo authorRepo = new AuthorRepo();
-//            Author author = authorRepo.getByNameAndSurname(authors.get(0).getName(), authors.get(0).getSurname());
+            AuthorRepo authorRepo = new AuthorRepo();
+            Author author = authorRepo.getByNameAndSurname(authors.get(0).getName(), authors.get(0).getSurname());
 //            results = exhibitRepo.exhibitsByAuthor(author);
 //            for (Object[] arr : results) {
 //                logger.info(Arrays.toString(arr));
 //            }
-
-//            Exhibit exhibit1 = exhibitRepo.getByName(exhibit.getName());
-//            logger.info(exhibit1.toString());
-//            logger.info(exhibitRepo.getById(exhibit1.getId()));
+            Exhibit exhibit1 = exhibitRepo.getByName(exhibit.getName());
+            logger.info(exhibit1.toString());
+            logger.info(exhibitRepo.getById(exhibit1.getId()));
+            logger.info(exhibitRepo.getAll().toString());
 
         } finally {
             repo.delete(exhibit);
@@ -137,9 +137,13 @@ public class TestHibernate {
 
         List<Room> rooms = new ArrayList<>();
         Worker worker = getWorker();
+        Worker worker2 = getWorker();
+        worker2.setName("Igor");
         rooms.add(getRoom());
 
+        Timestamp timeStart = new Timestamp(System.currentTimeMillis());
         Excursion excursion = new Excursion((long) 1, "Екскурсія", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), worker, rooms);
+
         excursion.equals(new Excursion((long) 1, "Екскурсія", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), worker, rooms));
         logger.info(excursion.toString() + excursion.hashCode());
 
@@ -147,9 +151,28 @@ public class TestHibernate {
         repo.save(worker);
         repo.save(excursion);
 
-        repo.delete(excursion);
-        repo.delete(rooms.get(0));
-        repo.delete(worker);
+        Excursion excursion2 = null;
+        try {
+            WorkerRepo workerRepo = new WorkerRepo();
+            ExcursionRepo excursionRepo = new ExcursionRepo();
+            Timestamp timeEnd = new Timestamp(System.currentTimeMillis());
+            logger.info("Count " + excursionRepo.countExcursions(timeStart, timeEnd));
+            logger.info("Excursions " + excursionRepo.getExcursions(timeStart, timeEnd));
+
+//            repo.save(worker2);
+//            excursion2 = new Excursion((long) 1, "Екскурсія2", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), worker2, rooms);
+//            repo.save(excursion2);
+
+//            logger.info("Free worker " + workerRepo.getFreeTourguides(timeStart, timeEnd));
+
+        } finally {
+            repo.delete(excursion);
+//            repo.delete(excursion2);
+            repo.delete(rooms.get(0));
+            repo.delete(worker);
+//            repo.delete(worker2);
+
+        }
     }
 
     public static Worker getWorker() {

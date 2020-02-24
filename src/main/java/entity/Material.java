@@ -22,6 +22,14 @@ public class Material {
     @Column(unique = true, length = 50)
     private String name;
 
-    @ManyToMany(mappedBy = "materials", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "materials", fetch = FetchType.LAZY)
     private List<Exhibit> exhibits = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Material{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

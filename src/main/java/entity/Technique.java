@@ -23,4 +23,12 @@ public class Technique {
 
     @OneToMany(mappedBy = "technique", fetch = FetchType.EAGER)
     private List<Exhibit> exhibits = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Technique{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

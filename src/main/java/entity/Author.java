@@ -25,6 +25,15 @@ public class Author {
     @Column(name = "surname", length = 50)
     private String surname;
 
-    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
     private List<Exhibit> exhibits = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                '}';
+    }
 }
