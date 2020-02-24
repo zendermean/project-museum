@@ -147,13 +147,16 @@ public class TestHibernate {
         repo.save(worker);
         repo.save(excursion);
 
-        ExcursionRepo excursionRepo = new ExcursionRepo();
-        Timestamp timeEnd = new Timestamp(System.currentTimeMillis());
-        logger.info("Count " + excursionRepo.countExcursions(timeStart, timeEnd));
-
-        repo.delete(excursion);
-        repo.delete(rooms.get(0));
-        repo.delete(worker);
+        try {
+            ExcursionRepo excursionRepo = new ExcursionRepo();
+            Timestamp timeEnd = new Timestamp(System.currentTimeMillis());
+            logger.info("Count " + excursionRepo.countExcursions(timeStart, timeEnd));
+            logger.info("Excursions " + excursionRepo.getExcursions(timeStart, timeEnd));
+        } finally {
+            repo.delete(excursion);
+            repo.delete(rooms.get(0));
+            repo.delete(worker);
+        }
     }
 
     public static Worker getWorker() {
