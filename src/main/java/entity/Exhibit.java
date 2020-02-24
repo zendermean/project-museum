@@ -39,4 +39,6 @@ public class Exhibit {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Technique technique;
+
+
 }

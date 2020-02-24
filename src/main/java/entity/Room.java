@@ -29,4 +29,13 @@ public class Room {
 
     @ManyToMany(mappedBy = "rooms", fetch = FetchType.EAGER)
     private List<Excursion> excursions = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", number=" + number +
+                ", floor=" + floor +
+                '}';
+    }
 }
