@@ -7,6 +7,7 @@ import org.hibernate.query.Query;
 import org.jboss.logging.Logger;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class WorkerRepo extends Repo {
@@ -68,14 +69,17 @@ public class WorkerRepo extends Repo {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        String hql = "SELECT w FROM Worker w " +
-                "WHERE w.id " +
-                "IN (SELECT wor.id FROM Worker wor " +
-                "JOIN Excusion e WHERE e.time_start >= :from AND e.time_end <= :to " +
-                "AND count(e.id) = 0 GROUP BY wor.id)";
+        Query query1 = session.createQuery("SELECT e.id FROM Excursion e WHERE e.time_start >= :from AND e.time_end <= :to");
+        query1.setParameter("from", from);
+        query1.setParameter("to", to);
+        List<Long> ids = query1.getResultList();
+        if (ids == null) {
+            ids = new ArrayList<>();
+        }
+
+        String hql = "SELECT w FROM Worker w JOIN w.excursions e WHERE e.id NOT IN (:ids)";
         Query query = session.createQuery(hql, Worker.class);
-        query.setParameter("from", from);
-        query.setParameter("to", to);
+        query.setParameter("ids", ids);
 
         List<Worker> results = query.getResultList();
         logger.info("Getted " + results.toString());
