@@ -80,19 +80,18 @@ public class ExhibitRepo extends Repo {
         return results;
     }
 
-    public List<Object[]> exhibitsByAuthor(Author author) {
+    public List<Exhibit> exhibitsByAuthor(Author author) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        String hql = "SELECT e.name, r.floor, r.number FROM (SELECT ex.name as name, ex.room as room FROM Exhibit ex JOIN ex.authors a WHERE a.id = :id) e " +
-                "INNER JOIN Room r on e.room = r.id ";
-        Query query = session.createQuery(hql);
+        String hql = "SELECT e FROM Exhibit e JOIN e.authors a WHERE a.id = :id ";
+        Query query = session.createQuery(hql, Exhibit.class);
         query.setParameter("id", author.getId());
 
-        List<Object[]> results = query.getResultList();
+        List<Exhibit> results = query.getResultList();
         logger.info("Name of Exhibit\t floor and\tnumber of room");
-        for (Object[] arr : results) {
-            logger.info(Arrays.toString(arr));
+        for (Exhibit exhibit : results) {
+            logger.info(exhibit.toString());
         }
         session.getTransaction().commit();
         session.close();
