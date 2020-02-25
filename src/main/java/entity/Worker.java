@@ -29,6 +29,16 @@ public class Worker {
     @Column(name = "surname", length = 50)
     private String surname;
 
-    @OneToMany(mappedBy = "worker", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "worker")
     private List<Excursion> excursions = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Worker{" +
+                "id=" + id +
+                ", position=" + position +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                '}';
+    }
 }

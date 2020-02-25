@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.jboss.logging.Logger;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class WorkerRepo extends Repo {
@@ -55,7 +56,29 @@ public class WorkerRepo extends Repo {
         Query query = session.createQuery(hql, Worker.class);
 
         List<Worker> results = query.getResultList();
-        logger.info("Getted" + results.toString());
+        logger.info("Getted " + results.toString());
+
+        session.getTransaction().commit();
+        session.close();
+
+        return results;
+    }
+
+    public List<Worker> getFreeTourguides(Timestamp from, Timestamp to) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String hql = "SELECT w FROM Worker w " +
+                "WHERE w.id " +
+                "IN (SELECT wor.id FROM Worker wor " +
+                "JOIN Excusion e WHERE e.time_start >= :from AND e.time_end <= :to " +
+                "AND count(e.id) = 0 GROUP BY wor.id)";
+        Query query = session.createQuery(hql, Worker.class);
+        query.setParameter("from", from);
+        query.setParameter("to", to);
+
+        List<Worker> results = query.getResultList();
+        logger.info("Getted " + results.toString());
 
         session.getTransaction().commit();
         session.close();
