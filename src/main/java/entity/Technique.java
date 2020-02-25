@@ -21,7 +21,7 @@ public class Technique {
     @Column(unique = true, length = 20)
     private String name;
 
-    @OneToMany(mappedBy = "technique", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "technique")
     private List<Exhibit> exhibits = new ArrayList<>();
 
     @Override

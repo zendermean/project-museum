@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,10 +23,19 @@
             <tr>
                 <td><c:out value="${exhibit.id}"/></td>
                 <td><c:out value="${exhibit.name}"/></td>
-                <td><c:out value="${exhibit.materials}"/></td>
-                <td><c:out value="${exhibit.authors}"/></td>
-                <td><c:out value="${exhibit.room}"/></td>
-                <td><c:out value="${exhibit.technique}"/></td>
+                <td>
+                    <c:forEach var="material" items="${exhibit.materials}">
+                        <c:out value="${material.name}"/> |
+                    </c:forEach>
+                </td>
+                <td>
+                    <c:forEach var="author" items="${exhibit.authors}">
+                        <c:out value="${author.name}"/>
+                        <c:out value="${author.surname}"/> |
+                    </c:forEach>
+                </td>
+                <td><c:out value="${exhibit.room.floor}"/> - <c:out value="${exhibit.room.number}"/></td>
+                <td><c:out value="${exhibit.technique.name}"/></td>
             </tr>
         </c:forEach>
     </table>

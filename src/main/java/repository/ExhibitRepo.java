@@ -49,7 +49,7 @@ public class ExhibitRepo extends Repo {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        String hql = "SELECT E FROM Exhibit E";
+        String hql = "SELECT e FROM Exhibit e WHERE e.id > 0";
         Query query = session.createQuery(hql, Exhibit.class);
 
         List<Exhibit> list = query.getResultList();
