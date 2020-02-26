@@ -2,6 +2,7 @@ package repository;
 
 import entity.Author;
 import entity.Exhibit;
+import entity.Worker;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.jboss.logging.Logger;
@@ -99,4 +100,30 @@ public class ExhibitRepo extends Repo {
         return results;
     }
 
+    public List<Exhibit> exhibitsByWorkerName(String workerName) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String hql2 = "SELECT e.id,e.name,r.number as room_number,w.name FROM exhibits e\n" +
+                "INNER JOIN rooms r on e.room_id = r.id\n" +
+                "INNER JOIN excursion_room er on r.id = er.room_id\n" +
+                "INNER JOIN excursions ex on er.excursion_id = ex.id\n" +
+                "INNER JOIN workers w on ex.worker_id = w.id WHERE w.name = '" + workerName + "'";
+
+        String hql = "SELECT e.id,e.name,w.name FROM Exhibit e " +
+                "INNER JOIN rooms r on e.room = r.id " +
+                "INNER JOIN r.excursions ex on ex.room_id = r.id " +
+                "INNER JOIN Worker w on w.id = :id WHERE w.name = '" + workerName + "'";
+        Query query = session.createQuery(hql, Exhibit.class);
+        //query.setParameter("name", worker.getName());
+
+        List<Exhibit> results = query.getResultList();
+
+        logger.info("Getted - " + results.toString());
+
+        session.getTransaction().commit();
+        session.close();
+
+        return results;
+    }
 }
