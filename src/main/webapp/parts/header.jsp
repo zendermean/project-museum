@@ -23,6 +23,9 @@
                         <a class="dropdown-item" href="/stat">All statistics</a>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/excursions">Excursions</a>
+                </li>
             </ul>
         </div>
     </nav>

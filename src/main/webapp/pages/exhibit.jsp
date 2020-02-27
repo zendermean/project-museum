@@ -38,5 +38,8 @@
         <p>Technique: ${exhibit.technique.name}</p>
     </div>
 </div>
+<div id="footer">
+    <jsp:include page="../parts/footer.jsp"/>
+</div>
 </body>
 </html>
