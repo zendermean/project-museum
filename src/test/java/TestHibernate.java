@@ -183,6 +183,24 @@ public class TestHibernate {
         logger.info(results.toString());
     }
 
+    @Test
+    public void testTourGuideStatisticsByNumberOfExcursions() {
+        StatisticRepo statisticRepo = new StatisticRepo();
+        List<Object[]> results = statisticRepo.tourGuideStatisticsByNumberOfExcursions();
+        for (Object[] arr : results) {
+            logger.info(Arrays.toString(arr));
+        }
+    }
+
+    @Test
+    public void testTotalWorkingTimeByEachWorker() {
+        StatisticRepo statisticRepo = new StatisticRepo();
+        List<Object[]> results = statisticRepo.totalWorkingTimeByEachWorker();
+        for (Object[] arr : results) {
+            logger.info(Arrays.toString(arr));
+        }
+    }
+
     public static Worker getWorker() {
         return new Worker((long) 1, Positions.TOURGUIDE, "Taras", "Kovaliv", new ArrayList<Excursion>());
     }
