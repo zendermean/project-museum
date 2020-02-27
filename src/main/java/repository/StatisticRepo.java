@@ -59,7 +59,7 @@ public class StatisticRepo extends Repo {
 
         String hql = "SELECT count(e.worker), w.name FROM Excursion e " +
                 "JOIN e.worker w WHERE w.position = :position GROUP BY w.id";
-
+      
         Query query = session.createQuery(hql);
         query.setParameter("position", Positions.TOURGUIDE);
 
