@@ -11,26 +11,31 @@
 <div id="header">
     <jsp:include page="../parts/header.jsp"/>
 </div>
-<div align="left">
-    <H1>Exhibit: ${exhibit.name}</H1>
-    <H6 class="blockquote-footer">Authors:
-        <c:forEach var="author" items="${exhibit.authors}">|
-            <c:out value="${author.name}"/>
-            <c:out value="${author.surname}"/> |
-        </c:forEach>
-    </H6>
-    <br>
-    <p>
-        Materials:
-        <c:forEach var="material" items="${exhibit.materials}">
-            <c:out value="${material.name}"/> ;
-        </c:forEach>
-    </p>
-    <p>
-        Technique: ${exhibit.technique.name}
-    </p>
-    <div id="footer">
-        <jsp:include page="../parts/footer.jsp"/>
+<div class="card border-dark mb-3 pb-3" style="max-width: 18rem; margin: 15px auto auto;">
+    <div class="card-header">Exhibit: ${exhibit.name}</div>
+    <div class="card-body text-dark">
+        <h6 class="card-title">Authors:</h6>
+        <p class="card-text">
+        <ul>
+            <c:forEach var="author" items="${exhibit.authors}">
+                <li>
+                    <c:out value="${author.name}"/>
+                    <c:out value="${author.surname}"/>
+                </li>
+            </c:forEach>
+        </ul>
+        </p>
+    </div>
+    <div class="card-footer bg-transparent"><p>Materials:</p>
+        <ul>
+            <c:forEach var="material" items="${exhibit.materials}">
+                <li>
+                    <c:out value="${material.name}"/>
+                </li>
+            </c:forEach>
+        </ul>
+        <hr>
+        <p>Technique: ${exhibit.technique.name}</p>
     </div>
 </div>
 </body>
