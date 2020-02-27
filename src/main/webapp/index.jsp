@@ -13,10 +13,9 @@
 <body>
 <div align="center">
     <caption><h2>List of exhibits</h2></caption>
-    <table border="1" cellpadding="5" class="table">
+    <table border="1" cellpadding="5" class="table table-striped">
         <thead class="thead-dark">
         <tr>
-            <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Materials</th>
             <th scope="col">Authors</th>
@@ -26,8 +25,7 @@
         </thead>
         <tbody>
         <c:forEach var="exhibit" items="${exhibitList}">
-            <tr>
-                <td scope="col"><c:out value="${exhibit.id}"/></td>
+            <tr onclick="window.location.assign('/exhibit?id=${exhibit.id}');">
                 <td scope="col"><c:out value="${exhibit.name}"/></td>
                 <td scope="col">
                     <c:forEach var="material" items="${exhibit.materials}">
@@ -40,7 +38,8 @@
                         <c:out value="${author.surname}"/> |
                     </c:forEach>
                 </td>
-                <td scope="col"><c:out value="${exhibit.room.floor}"/> - <c:out value="${exhibit.room.number}"/></td>
+                <td scope="col"><c:out value="${exhibit.room.floor}"/> - <c:out
+                        value="${exhibit.room.number}"/></td>
                 <td scope="col"><c:out value="${exhibit.technique.name}"/></td>
             </tr>
         </c:forEach>

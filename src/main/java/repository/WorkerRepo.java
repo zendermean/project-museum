@@ -55,7 +55,7 @@ public class WorkerRepo extends Repo {
 
         String hql = "SELECT w FROM Worker w WHERE w.position = :position";
         Query query = session.createQuery(hql, Worker.class);
-        query.setParameter("position", Positions.TOURGUIDE.ordinal());
+        query.setParameter("position", Positions.TOURGUIDE);
 
         List<Worker> results = query.getResultList();
         logger.info("Getted " + results.toString());

@@ -1,5 +1,6 @@
 package servlets;
 
+import entity.Exhibit;
 import repository.ExhibitRepo;
 
 import javax.servlet.ServletException;
@@ -27,8 +28,9 @@ public class ExhibitServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//        Exhibit exhibit = exhibitRepo.getById(Long.parseLong(id));
-//        req.getSession().setAttribute("exhibit", exhibit);
+        id = req.getParameter("id");
+        Exhibit exhibit = exhibitRepo.getById(Long.parseLong(id));
+        req.getSession().setAttribute("exhibit", exhibit);
         req.getRequestDispatcher("pages/exhibit.jsp").forward(req, resp);
     }
 
