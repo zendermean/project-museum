@@ -28,15 +28,21 @@
             <tr onclick="window.location.assign('/exhibit?id=${exhibit.id}');">
                 <td scope="col"><c:out value="${exhibit.name}"/></td>
                 <td scope="col">
-                    <c:forEach var="material" items="${exhibit.materials}">
-                        <c:out value="${material.name}"/> |
-                    </c:forEach>
+                    <ul style="list-style-type:none;">
+                        <c:forEach var="material" items="${exhibit.materials}">
+                            <li><c:out value="${material.name}"/></li>
+                        </c:forEach>
+                    </ul>
                 </td>
                 <td scope="col">
-                    <c:forEach var="author" items="${exhibit.authors}">
-                        <c:out value="${author.name}"/>
-                        <c:out value="${author.surname}"/> |
-                    </c:forEach>
+                    <ul style="list-style-type:none;">
+                        <c:forEach var="author" items="${exhibit.authors}">
+                            <li>
+                                <c:out value="${author.name}"/>
+                                <c:out value="${author.surname}"/>
+                            </li>
+                        </c:forEach>
+                    </ul>
                 </td>
                 <td scope="col"><c:out value="${exhibit.room.floor}"/> - <c:out
                         value="${exhibit.room.number}"/></td>
