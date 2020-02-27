@@ -114,10 +114,10 @@ public class TestHibernate {
 
             AuthorRepo authorRepo = new AuthorRepo();
             Author author = authorRepo.getByNameAndSurname(authors.get(0).getName(), authors.get(0).getSurname());
-//            results = exhibitRepo.exhibitsByAuthor(author);
-//            for (Object[] arr : results) {
-//                logger.info(Arrays.toString(arr));
-//            }
+            List<Exhibit> exhibits = exhibitRepo.exhibitsByAuthor(author);
+            for (Exhibit exhibit2 : exhibits) {
+                logger.info(exhibit2.toString());
+            }
             Exhibit exhibit1 = exhibitRepo.getByName(exhibit.getName());
             logger.info(exhibit1.toString());
             logger.info(exhibitRepo.getById(exhibit1.getId()));
@@ -176,7 +176,7 @@ public class TestHibernate {
     }
 
     @Test
-    public void testFindExcursionByWorkerName(){
+    public void testFindExhibitByWorkerName() {
         ExhibitRepo exhibitRepo = new ExhibitRepo();
         String name = "Oleh";
         List<Exhibit> results = exhibitRepo.exhibitsByWorkerName(name);

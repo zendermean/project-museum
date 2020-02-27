@@ -1,20 +1,18 @@
 package servlets;
 
-import entity.Exhibit;
 import repository.ExhibitRepo;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet({"/home", "", "/"})
-public class HomeServlet extends HttpServlet {
+@WebServlet("/exhibit")
+public class ExhibitServlet extends HttpServlet {
     private ExhibitRepo exhibitRepo;
+    private String id;
 
     @Override
     public void init() throws ServletException {
@@ -22,15 +20,20 @@ public class HomeServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+    public String getServletName() {
+        return super.getServletName();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Exhibit> exhibitList = exhibitRepo.getAll();
-        req.setAttribute("exhibitList", exhibitList);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
-        dispatcher.forward(req, resp);
+
+//        Exhibit exhibit = exhibitRepo.getById(Long.parseLong(id));
+//        req.getSession().setAttribute("exhibit", exhibit);
+        req.getRequestDispatcher("pages/exhibit.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPost(req, resp);
     }
 }

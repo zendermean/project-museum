@@ -1,29 +1,23 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 38067
-  Date: 26.02.2020
-  Time: 14:53
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Museum</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <title>Museum (Statistic by ${name})</title>
+    <jsp:include page="../parts/head.jsp"/>
 </head>
-
+<div class="header">
+    <jsp:include page="../parts/header.jsp"/>
+</div>
 <body>
 <div align="center">
-    <caption><h2>Statistic by Material</h2></caption>
+    <caption><h2>Statistic by ${name}</h2></caption>
     <table border="1" cellpadding="5">
         <thead class="thead-dark">
         <tr>
             <th scope="col">Count of Exhibit</th>
-            <th scope="col">Name of Material</th>
+            <th scope="col">Name of ${name}</th>
         </tr>
         </thead>
         <tbody>
@@ -37,4 +31,7 @@
     </table>
 </div>
 </body>
+<div id="footer">
+    <jsp:include page="../parts/footer.jsp"/>
+</div>
 </html>
