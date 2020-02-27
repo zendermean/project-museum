@@ -1,5 +1,7 @@
 package repository;
 
+import entity.Worker;
+import entity.enums.Positions;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.jboss.logging.Logger;
@@ -56,8 +58,10 @@ public class StatisticRepo extends Repo {
         session.beginTransaction();
 
         String hql = "SELECT count(e.worker), w.name FROM Excursion e " +
-                "JOIN e.worker w WHERE w.position = 0 GROUP BY w.id";
+                "JOIN e.worker w WHERE w.position = :position GROUP BY w.id";
+
         Query query = session.createQuery(hql);
+        query.setParameter("position", Positions.TOURGUIDE);
 
         List<Object[]> results = query.getResultList();
 
@@ -79,8 +83,9 @@ public class StatisticRepo extends Repo {
         String hql = "SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(e.time_end)) - SUM(TIME_TO_SEC(e.time_start))) " +
                 "as total_time, " +
                 "w.name as worker_name FROM Excursion e " +
-                "JOIN e.worker w WHERE w.position = 0 GROUP BY w.id";
+                "JOIN e.worker w WHERE w.position = :position GROUP BY w.id";
         Query query = session.createQuery(hql);
+        query.setParameter("position", Positions.TOURGUIDE);
 
         List<Object[]> results = query.getResultList();
 
