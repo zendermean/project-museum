@@ -7,7 +7,6 @@ import org.hibernate.query.Query;
 import org.jboss.logging.Logger;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 public class WorkerRepo extends Repo {
@@ -75,8 +74,8 @@ public class WorkerRepo extends Repo {
         query1.setParameter("from", from);
         query1.setParameter("to", to);
         List<Long> ids = query1.getResultList();
-        if (ids == null) {
-            ids = new ArrayList<>();
+        if (ids.size() == 0) {
+            ids.add((long) 0);
         }
 
         String hql = "SELECT w FROM Worker w JOIN w.excursions e WHERE e.id NOT IN (:ids)";

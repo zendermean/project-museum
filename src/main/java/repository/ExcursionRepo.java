@@ -44,4 +44,20 @@ public class ExcursionRepo extends Repo {
 
         return result;
     }
+
+    public List<Excursion> getAll() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String hql = "SELECT e FROM Excursion e";
+        Query query = session.createQuery(hql, Excursion.class);
+
+        List<Excursion> list = query.getResultList();
+        logger.info("Getted - " + list.toString());
+
+        session.getTransaction().commit();
+        session.close();
+
+        return list;
+    }
 }

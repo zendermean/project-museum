@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class TestHibernate {
     private Repo repo = new Repo();
@@ -142,13 +143,15 @@ public class TestHibernate {
         rooms.add(getRoom());
 
         Timestamp timeStart = new Timestamp(System.currentTimeMillis());
-        Excursion excursion = new Excursion((long) 1, "Екскурсія", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), worker, rooms);
-
-        excursion.equals(new Excursion((long) 1, "Екскурсія", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), worker, rooms));
-        logger.info(excursion.toString() + excursion.hashCode());
 
         repo.save(rooms.get(0));
         repo.save(worker);
+        repo.save(worker2);
+
+        Excursion excursion = new Excursion((long) 1, "Екскурсія", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), worker, rooms);
+        excursion.equals(new Excursion((long) 1, "Екскурсія", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), worker, rooms));
+        logger.info(excursion.toString() + excursion.hashCode());
+
         repo.save(excursion);
 
         Excursion excursion2 = null;
@@ -159,11 +162,11 @@ public class TestHibernate {
             logger.info("Count " + excursionRepo.countExcursions(timeStart, timeEnd));
             logger.info("Excursions " + excursionRepo.getExcursions(timeStart, timeEnd));
 
-            repo.save(worker2);
             excursion2 = new Excursion((long) 1, "Екскурсія2", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), worker2, rooms);
             repo.save(excursion2);
+            logger.info("All excursions - " + excursionRepo.getAll().toString());
 
-            logger.info("Free worker " + workerRepo.getFreeTourguides(timeStart, timeEnd));
+            logger.info("Free worker - " + workerRepo.getFreeTourguides(timeStart, timeEnd));
 
         } finally {
             repo.delete(excursion);
@@ -171,7 +174,6 @@ public class TestHibernate {
             repo.delete(rooms.get(0));
             repo.delete(worker);
             repo.delete(worker2);
-
         }
     }
 
@@ -179,7 +181,7 @@ public class TestHibernate {
     public void testFindExhibitByWorkerName() {
         ExhibitRepo exhibitRepo = new ExhibitRepo();
         String name = "Oleh";
-        List<Exhibit> results = exhibitRepo.exhibitsByWorkerName(name);
+        Set<Exhibit> results = exhibitRepo.exhibitsByWorkerName(name);
         logger.info(results.toString());
     }
 
