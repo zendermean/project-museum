@@ -53,8 +53,9 @@ public class WorkerRepo extends Repo {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        String hql = "FROM Worker w WHERE w.position = '" + Positions.TOURGUIDE.ordinal() + "'";
+        String hql = "SELECT w FROM Worker w WHERE w.position = :position";
         Query query = session.createQuery(hql, Worker.class);
+        query.setParameter("position", Positions.TOURGUIDE.ordinal());
 
         List<Worker> results = query.getResultList();
         logger.info("Getted " + results.toString());
@@ -69,7 +70,8 @@ public class WorkerRepo extends Repo {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Query query1 = session.createQuery("SELECT e.id FROM Excursion e WHERE e.time_start >= :from AND e.time_end <= :to");
+        Query query1 = session.createQuery("SELECT e.id FROM Excursion e " +
+                "WHERE e.time_start >= :from AND e.time_end <= :to");
         query1.setParameter("from", from);
         query1.setParameter("to", to);
         List<Long> ids = query1.getResultList();

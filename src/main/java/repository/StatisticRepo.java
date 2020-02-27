@@ -16,8 +16,7 @@ public class StatisticRepo extends Repo {
         session.beginTransaction();
 
         String hql = "SELECT count(e.id), t.name FROM Exhibit e " +
-                "INNER JOIN Technique t on e.technique = t.id " +
-                "GROUP BY t.name ORDER BY count(e.id) DESC";
+                "JOIN e.technique t GROUP BY t.name ORDER BY count(e.id) DESC";
         Query query = session.createQuery(hql);
 
         List<Object[]> results = query.getResultList();
