@@ -3,7 +3,6 @@ package servlets;
 import entity.Exhibit;
 import repository.ExhibitRepo;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,7 +29,6 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Exhibit> exhibitList = exhibitRepo.getAll();
         req.setAttribute("exhibitList", exhibitList);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
-        dispatcher.forward(req, resp);
+        req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
 }
