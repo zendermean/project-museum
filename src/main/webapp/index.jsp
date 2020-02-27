@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP List Exhibit Records</title>
+    <title>List Exhibits</title>
     <jsp:include page="parts/head.jsp"/>
 </head>
 <div id="header">
@@ -12,7 +12,9 @@
 </div>
 <body>
 <div align="center">
+    <hr class="bg-dark">
     <caption><h2>List of exhibits</h2></caption>
+    <hr class="bg-dark">
     <table border="1" cellpadding="5" class="table table-striped">
         <thead class="thead-dark">
         <tr>

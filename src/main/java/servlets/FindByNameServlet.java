@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 
 @WebServlet("/findByWorker")
 public class FindByNameServlet extends HttpServlet {
@@ -23,7 +23,7 @@ public class FindByNameServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String workerName = request.getParameter("workerName");
-        List<Exhibit> exhibitList = exhibitRepo.exhibitsByWorkerName(workerName);
+        Set<Exhibit> exhibitList = exhibitRepo.exhibitsByWorkerName(workerName);
         request.setAttribute("exhibitList", exhibitList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);

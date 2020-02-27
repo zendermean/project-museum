@@ -7,7 +7,9 @@ import org.hibernate.query.Query;
 import org.jboss.logging.Logger;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ExhibitRepo extends Repo {
 
@@ -34,8 +36,9 @@ public class ExhibitRepo extends Repo {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        String hql = "SELECT E FROM Exhibit E WHERE E.id = '" + id + "'";
+        String hql = "SELECT E FROM Exhibit E WHERE E.id = :id";
         Query query = session.createQuery(hql, Exhibit.class);
+        query.setParameter("id", id);
 
         Exhibit exhibit = (Exhibit) query.uniqueResult();
         logger.info("Getted - " + exhibit.toString());
@@ -50,7 +53,7 @@ public class ExhibitRepo extends Repo {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        String hql = "SELECT e FROM Exhibit e WHERE e.id > 0";
+        String hql = "SELECT e FROM Exhibit e";
         Query query = session.createQuery(hql, Exhibit.class);
 
         List<Exhibit> list = query.getResultList();
@@ -99,7 +102,7 @@ public class ExhibitRepo extends Repo {
         return results;
     }
 
-    public List<Exhibit> exhibitsByWorkerName(String workerName) {
+    public Set<Exhibit> exhibitsByWorkerName(String workerName) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
@@ -109,7 +112,7 @@ public class ExhibitRepo extends Repo {
         Query query = session.createQuery(hql, Exhibit.class);
         query.setParameter("name", workerName);
 
-        List<Exhibit> results = query.getResultList();
+        Set<Exhibit> results = new HashSet<>(query.getResultList());
 
         logger.info("Getted - " + results.toString());
 

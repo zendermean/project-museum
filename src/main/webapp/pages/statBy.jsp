@@ -11,7 +11,7 @@
     <jsp:include page="../parts/header.jsp"/>
 </div>
 <body>
-<div align="center">
+<div align="center" class="py-4">
     <caption><h2>Statistic by ${name}</h2></caption>
     <table border="1" cellpadding="5">
         <thead class="thead-dark">
