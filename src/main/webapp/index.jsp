@@ -4,21 +4,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>JSP List Exhibit Records</title>
-    <script src="style/bootstrap-4.4.1-dist/css/bootstrap.css"></script>
-    <script src="style/bootstrap-4.4.1-dist/js/bootstrap.js"></script>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <jsp:include page="parts/head.jsp"/>
 </head>
 <div id="header">
     <jsp:include page="parts/header.jsp"/>
 </div>
 <body>
 <div align="center">
+    <caption><h2>List of exhibits</h2></caption>
     <table border="1" cellpadding="5" class="table">
-        <caption><h2>List of exhibits</h2></caption>
         <thead class="thead-dark">
         <tr>
             <th scope="col">ID</th>
