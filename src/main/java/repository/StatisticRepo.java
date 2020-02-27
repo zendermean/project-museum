@@ -51,4 +51,48 @@ public class StatisticRepo extends Repo {
         return results;
     }
 
+    public List<Object[]> tourGuideStatisticsByNumberOfExcursions() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String hql = "SELECT count(e.worker), w.name FROM Excursion e " +
+                "JOIN e.worker w WHERE w.position = 0 GROUP BY w.id";
+        Query query = session.createQuery(hql);
+
+        List<Object[]> results = query.getResultList();
+
+        logger.info("Count of Excursion\tWorker name");
+        for (Object[] arr : results) {
+            logger.info(Arrays.toString(arr));
+        }
+
+        session.getTransaction().commit();
+        session.close();
+
+        return results;
+    }
+
+    public List<Object[]> totalWorkingTimeByEachWorker() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String hql = "SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(e.time_end)) - SUM(TIME_TO_SEC(e.time_start))) " +
+                "as total_time, " +
+                "w.name as worker_name FROM Excursion e " +
+                "JOIN e.worker w WHERE w.position = 0 GROUP BY w.id";
+        Query query = session.createQuery(hql);
+
+        List<Object[]> results = query.getResultList();
+
+        logger.info("Total time of work\tWorker name");
+        for (Object[] arr : results) {
+            logger.info(Arrays.toString(arr));
+        }
+
+        session.getTransaction().commit();
+        session.close();
+
+        return results;
+    }
+
 }
