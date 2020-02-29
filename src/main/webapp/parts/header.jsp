@@ -8,8 +8,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="/findByWorker">Find by Worker</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="/finder" id="navbarDropdown1" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Finder
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item text-text-secondary"
+                           href="/findExhibitsByWorkerName">Exhibits By Worker
+                            Name</a>
+                        <a class="dropdown-item text-secondary" href="/findExhibitsByAuthor">Exhibits
+                            By Author</a>
+                        <div class="dropdown-divider text-white"></div>
+                        <a class="dropdown-item text-secondary" href="/findExhibitsByRoom">Exhibits By Room</a>
+                    </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-light" href="/stat" id="navbarDropdown" role="button"
