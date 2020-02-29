@@ -52,9 +52,9 @@ public class TestHibernate {
         repo.save(author);
 
         try {
-            Object author1 = authorRepo.getByNameAndSurname(author.getName(), author.getSurname());
+            Author author1 = authorRepo.getByNameAndSurname(author.getName(), author.getSurname());
             logger.info(author1.toString());
-            Object author2 = authorRepo.getById(author.getId());
+            Author author2 = authorRepo.getById(author.getId());
             logger.info(author2.toString());
         } finally {
             repo.delete(author);

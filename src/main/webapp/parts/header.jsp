@@ -14,13 +14,12 @@
                         Finder
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item text-text-secondary"
-                           href="/findExhibitsByWorkerName">Exhibits By Worker
-                            Name</a>
-                        <a class="dropdown-item text-secondary" href="/findExhibitsByAuthor">Exhibits
-                            By Author</a>
-                        <div class="dropdown-divider text-white"></div>
-                        <a class="dropdown-item text-secondary" href="/findExhibitsByRoom">Exhibits By Room</a>
+                        <a class="dropdown-item text-secondary" href="/findExhibitsByWorkerName">
+                            Exhibits By Worker Name</a>
+                        <a class="dropdown-item text-secondary" href="/findExhibitsByAuthor">
+                            Exhibits By Author</a>
+                        <a class="dropdown-item text-secondary" href="/findExhibitsByRoom">
+                            Exhibits By Room</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -29,7 +28,7 @@
                         Statistic
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item text-text-secondary" href="/statByTechnique">By Technique</a>
+                        <a class="dropdown-item text-secondary" href="/statByTechnique">By Technique</a>
                         <a class="dropdown-item text-secondary" href="/statByMaterial">By Material</a>
                         <div class="dropdown-divider text-white"></div>
                         <a class="dropdown-item text-secondary" href="/stat">All statistics</a>

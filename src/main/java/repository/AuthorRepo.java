@@ -26,24 +26,25 @@ public class AuthorRepo extends Repo {
         return author;
     }
 
-    public Object getByNameAndSurname(String name, String surname) {
+    public Author getByNameAndSurname(String name, String surname) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        try {
-            String hql = "SELECT a FROM Author a WHERE a.name = :name AND a.surname = :surname";
-            Query query = session.createQuery(hql, Author.class);
-            query.setParameter("surname", surname);
-            query.setParameter("name", name);
+        String hql = "SELECT a FROM Author a WHERE a.name = :name AND a.surname = :surname";
+        Query query = session.createQuery(hql, Author.class);
+        query.setParameter("surname", surname);
+        query.setParameter("name", name);
 
-            Object author = (Author)query.uniqueResult();
+        Author author = (Author) query.uniqueResult();
+
+        if (author != null) {
             logger.info("Getted -" + author.toString());
-
-            return author;
-        } catch (NullPointerException e) {
-            return null;
-        } finally {
-            session.getTransaction().commit();
-            session.close();
+        } else {
+            logger.info("No author");
         }
+
+        session.getTransaction().commit();
+        session.close();
+
+        return author;
     }
 }
