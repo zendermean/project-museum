@@ -52,10 +52,10 @@ public class TestHibernate {
         repo.save(author);
 
         try {
-            Author author1 = authorRepo.getByNameAndSurname(author.getName(), author.getSurname());
+            Object author1 = authorRepo.getByNameAndSurname(author.getName(), author.getSurname());
             logger.info(author1.toString());
-            author1 = authorRepo.getById(author1.getId());
-            logger.info(author1.toString());
+            Object author2 = authorRepo.getById(author.getId());
+            logger.info(author2.toString());
         } finally {
             repo.delete(author);
         }
@@ -114,8 +114,8 @@ public class TestHibernate {
             }
 
             AuthorRepo authorRepo = new AuthorRepo();
-            Author author = authorRepo.getByNameAndSurname(authors.get(0).getName(), authors.get(0).getSurname());
-            List<Exhibit> exhibits = exhibitRepo.exhibitsByAuthor(author);
+            Object author = authorRepo.getByNameAndSurname(authors.get(0).getName(), authors.get(0).getSurname());
+            List<Exhibit> exhibits = exhibitRepo.exhibitsByAuthor((Author) author);
             for (Exhibit exhibit2 : exhibits) {
                 logger.info(exhibit2.toString());
             }
