@@ -13,8 +13,15 @@
 <body>
 <div align="center">
     <hr class="bg-dark">
-    <caption><h2>Excursions</h2></caption>
+
+    <caption>
+        <h2 class="float-left ml-5">Excursions</h2>
+        <a class="btn btn-dark float-right mr-4" href="/dateExcursions" role="button">Select dates</a>
+    </caption>
+
+    <br><br>
     <hr class="bg-dark">
+
     <table border="1" cellpadding="5" class="table table-striped">
         <thead class="thead-dark">
         <tr>
