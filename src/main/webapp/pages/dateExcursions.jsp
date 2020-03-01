@@ -9,7 +9,7 @@
 </div>
 <body>
 <div align="center">
-    <form id="freeTourguides" method="post" action="/freeTourguides">
+    <form id="dateExcursions" method="post" action="/dateExcursions">
         <hr class="bg-dark">
         <caption><h4 class="text-warning">${message}</h4></caption>
 

@@ -1,8 +1,8 @@
 package servlets;
 
 import entity.Worker;
-import org.jboss.logging.Logger;
 import repository.WorkerRepo;
+import services.TimeService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,8 +17,6 @@ import java.util.Set;
 @WebServlet({"/tourguides", "/freeTourguides"})
 public class TourguideServlet extends HttpServlet {
     private WorkerRepo workerRepo;
-
-    final static Logger logger = Logger.getLogger(TourguideServlet.class);
 
     @Override
     public void init() throws ServletException {
@@ -42,21 +40,16 @@ public class TourguideServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Timestamp from = TimeService.convert(req.getParameter("from"));
+        Timestamp to = TimeService.convert(req.getParameter("to"));
 
-        Timestamp from = convert(req.getParameter("from"));
-        Timestamp to = convert(req.getParameter("to"));
-
-        logger.info(from.toString() + "      " + to.toString());
+        if (!TimeService.isCorrect(from, to)) {
+            req.setAttribute("message", "Please input correct date");
+            req.getRequestDispatcher("pages/freeTourguides.jsp").forward(req, resp);
+        }
 
         Set<Worker> workerList = workerRepo.getFreeTourguides(from, to);
         req.setAttribute("workerList", workerList);
         req.getRequestDispatcher("pages/tourguides.jsp").forward(req, resp);
-    }
-
-    private static Timestamp convert(String time) {
-        time += ":00";
-        time = time.replace("T", " ");
-        logger.info(time);
-        return Timestamp.valueOf(time);
     }
 }
