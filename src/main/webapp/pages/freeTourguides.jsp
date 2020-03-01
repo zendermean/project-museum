@@ -11,7 +11,7 @@
 <div align="center">
     <form id="freeTourguides" method="post" action="/freeTourguides">
         <hr class="bg-dark">
-        <caption><h4>${message}</h4></caption>
+        <caption><h4 class="text-warning">${message}</h4></caption>
 
         <caption><h5>Please select date from</h5></caption>
         <input type="datetime-local" name="from" value="2020-03-03T12:30">
@@ -19,7 +19,7 @@
         <caption><h5>Please select date to</h5></caption>
         <input type="datetime-local" name="to" value="2020-03-03T12:30">
 
-        <br>
+        <br><br>
 
         <input type="submit" class="btn btn-dark" value="Select"/>
 

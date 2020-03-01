@@ -28,10 +28,12 @@
                         Statistic
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item text-secondary" href="/stat">All statistics</a>
+
+                        <div class="dropdown-divider text-white"></div>
+
                         <a class="dropdown-item text-secondary" href="/statByTechnique">By Technique</a>
                         <a class="dropdown-item text-secondary" href="/statByMaterial">By Material</a>
-                        <div class="dropdown-divider text-white"></div>
-                        <a class="dropdown-item text-secondary" href="/stat">All statistics</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -43,9 +45,11 @@
                         Tourguides
                     </a>
                     <div class="dropdown-menu" aria-labelledby="tour">
-                        <a class="dropdown-item text-secondary" href="/freeTourguides">Get free tourguides</a>
-                        <div class="dropdown-divider text-white"></div>
                         <a class="dropdown-item text-secondary" href="/tourguides">All Tourguides</a>
+
+                        <div class="dropdown-divider text-white"></div>
+
+                        <a class="dropdown-item text-secondary" href="/freeTourguides">Get free tourguides</a>
                     </div>
                 </li>
             </ul>
