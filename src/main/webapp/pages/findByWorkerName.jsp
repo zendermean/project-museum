@@ -14,7 +14,7 @@
     <form id="findByWorkerName" method="get" action="">
         <label>Worker name</label>
         <input type="text" name="workerName" required placeholder="Worker name"/>
-        <input type="submit" value="Find"/>
+        <input type="submit" class="btn btn-dark"  value="Find"/>
     </form>
     <br>
 </div>

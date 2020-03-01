@@ -15,7 +15,7 @@
         <label>Enter the author: </label>
         <input type="text" name="authorName" required placeholder="Author name"/>
         <input type="text" name="authorSurname" required placeholder="Author surname">
-        <input type="submit" value="Find"/>
+        <input type="submit" class="btn btn-dark" value="Find"/>
     </form>
     <br>
 </div>
