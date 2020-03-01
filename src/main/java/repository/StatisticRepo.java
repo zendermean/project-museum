@@ -1,6 +1,5 @@
 package repository;
 
-import entity.Worker;
 import entity.enums.Positions;
 import org.hibernate.Session;
 import org.hibernate.query.Query;

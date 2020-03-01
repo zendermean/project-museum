@@ -7,7 +7,9 @@ import org.hibernate.query.Query;
 import org.jboss.logging.Logger;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class WorkerRepo extends Repo {
 
@@ -65,7 +67,7 @@ public class WorkerRepo extends Repo {
         return results;
     }
 
-    public List<Worker> getFreeTourguides(Timestamp from, Timestamp to) {
+    public Set<Worker> getFreeTourguides(Timestamp from, Timestamp to) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
@@ -73,7 +75,9 @@ public class WorkerRepo extends Repo {
                 "WHERE e.time_start >= :from AND e.time_end <= :to");
         query1.setParameter("from", from);
         query1.setParameter("to", to);
+
         List<Long> ids = query1.getResultList();
+
         if (ids.size() == 0) {
             ids.add((long) 0);
         }
@@ -82,7 +86,7 @@ public class WorkerRepo extends Repo {
         Query query = session.createQuery(hql, Worker.class);
         query.setParameter("ids", ids);
 
-        List<Worker> results = query.getResultList();
+        Set<Worker> results = new HashSet<>(query.getResultList());
         logger.info("Getted " + results.toString());
 
         session.getTransaction().commit();
