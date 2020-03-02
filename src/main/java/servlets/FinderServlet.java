@@ -25,10 +25,6 @@ public class FinderServlet extends HttpServlet {
         authorRepo = new AuthorRepo();
     }
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
-    }
-
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getServletPath();
         switch (action) {
@@ -71,7 +67,7 @@ public class FinderServlet extends HttpServlet {
         if (authorName == null && authorSurname == null) {
             req.getRequestDispatcher("pages/findByAuthor.jsp").forward(req, resp);
         } else {
-            author = (Author) authorRepo.getByNameAndSurname(authorName, authorSurname);
+            author = authorRepo.getByNameAndSurname(authorName, authorSurname);
             if (author != null) {
                 List<Exhibit> exhibitList = exhibitRepo.exhibitsByAuthor(author);
                 if (exhibitList != null) {

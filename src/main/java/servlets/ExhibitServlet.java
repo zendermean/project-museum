@@ -21,21 +21,11 @@ public class ExhibitServlet extends HttpServlet {
     }
 
     @Override
-    public String getServletName() {
-        return super.getServletName();
-    }
-
-    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         id = req.getParameter("id");
         Exhibit exhibit = exhibitRepo.getById(Long.parseLong(id));
         req.getSession().setAttribute("exhibit", exhibit);
         req.getRequestDispatcher("pages/exhibit.jsp").forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
     }
 }
