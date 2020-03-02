@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -10,11 +9,8 @@
 </div>
 <body>
 <div align="center">
-    <h3>Count of all excursions by period</h3>
-    <c:if test="${not empty countExcursions}">
-        <h3 class="text-success">Excursions were conducted: ${countExcursions}</h3>
-    </c:if>
-    <form id="countOfExcursions" method="post" action="/statByCountOfExcursions">
+    <h3>Total working time of tourguides by period</h3>
+    <form id="totalWorkingTime" method="get" action="/statTotalWorkingTimeByEachWorker">
         <hr class="bg-dark">
         <caption><h4 class="text-warning">${message}</h4></caption>
 
