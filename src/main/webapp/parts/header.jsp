@@ -34,7 +34,12 @@
                         <a class="dropdown-item text-secondary" href="/statByMaterial">By Material</a>
                         <a class="dropdown-item text-secondary" href="/statByTourguides">By Tourguides</a>
                         <div class="dropdown-divider text-white"></div>
-                        <a class="dropdown-item text-secondary" href="/statByCountOfExcursions">By Excursions</a>
+                        <a class="dropdown-item text-secondary"
+                           href="${pageContext.request.contextPath}/pages/totalWorkingTimeTourguide.jsp">By Total
+                            Working
+                            Time</a>
+                        <a class="dropdown-item text-secondary" href="/statByCountOfExcursions">By Count Of
+                            Excursions</a>
                     </div>
                 </li>
                 <li class="nav-item">

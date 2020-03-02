@@ -15,7 +15,9 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
-@WebServlet({"/stat", "/statByTechnique", "/statByMaterial", "/statByCountOfExcursions", "/statByTourguides"})
+@WebServlet({"/stat", "/statByTechnique", "/statByMaterial",
+        "/statByCountOfExcursions", "/statByTourguides",
+        "/statTotalWorkingTimeByEachWorker"})
 public class StatisticServlet extends HttpServlet {
     private StatisticRepo statisticRepo;
 
@@ -36,6 +38,9 @@ public class StatisticServlet extends HttpServlet {
                 break;
             case "/statByCountOfExcursions":
                 req.getRequestDispatcher("pages/countExcursionsByPeriod.jsp").forward(req, resp);
+                break;
+            case "/statTotalWorkingTimeByEachWorker":
+                doGetTotalWorkingTimeByEachWorker(req, resp);
                 break;
             case "/statByTourguides":
                 doGetTourguideStatisticsByNumberOfExcursions(req, resp);
@@ -79,6 +84,21 @@ public class StatisticServlet extends HttpServlet {
         List<Object[]> list = statisticRepo.tourGuideStatisticsByNumberOfExcursions();
         req.getSession().setAttribute("list", list);
         req.getSession().setAttribute("name", "Excursion");
+        req.getRequestDispatcher("pages/statBy.jsp").forward(req, resp);
+    }
+
+    protected void doGetTotalWorkingTimeByEachWorker(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Timestamp from = TimeService.convert(req.getParameter("from"));
+        Timestamp to = TimeService.convert(req.getParameter("to"));
+
+        if (!TimeService.isCorrect(from, to)) {
+            req.setAttribute("message", "Please input correct date");
+            req.getRequestDispatcher("pages/AllStat.jsp").forward(req, resp);
+        }
+
+        List<Object[]> list = statisticRepo.totalWorkingTimeByEachWorker(from, to);
+        req.setAttribute("list", list);
+        req.getSession().setAttribute("name", "Tourguide");
         req.getRequestDispatcher("pages/statBy.jsp").forward(req, resp);
     }
 }

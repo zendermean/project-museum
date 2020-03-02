@@ -19,7 +19,10 @@
         <a href="/statByTourguides"
            class="list-group-item list-group-item-action list-group-item-action list-group-item-dark text-dark">
             Statistic by Tourguides</a>
-        <a href="#"
+        <a href="/statByCountOfExcursions"
+           class="list-group-item list-group-item-action list-group-item-action list-group-item-dark text-dark">
+            Statistic by count of Excursion</a>
+        <a href="${pageContext.request.contextPath}/pages/totalWorkingTimeTourguide.jsp"
            class="list-group-item list-group-item-action list-group-item-action list-group-item-dark text-dark">
             Total working time of each tourguide by the period</a>
     </div>
