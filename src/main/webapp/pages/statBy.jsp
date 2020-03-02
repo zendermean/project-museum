@@ -16,8 +16,8 @@
     <table border="1" cellpadding="5">
         <thead class="thead-dark">
         <tr>
-            <th scope="col">Count of Exhibit</th>
-            <th scope="col">Name of ${name}</th>
+            <th scope="col">Count of ${name}</th>
+            <th scope="col">Name</th>
         </tr>
         </thead>
         <tbody>

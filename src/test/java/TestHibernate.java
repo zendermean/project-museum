@@ -158,8 +158,9 @@ public class TestHibernate {
         try {
             WorkerRepo workerRepo = new WorkerRepo();
             ExcursionRepo excursionRepo = new ExcursionRepo();
+            StatisticRepo statisticRepo = new StatisticRepo();
             Timestamp timeEnd = new Timestamp(System.currentTimeMillis());
-            logger.info("Count " + excursionRepo.countExcursions(timeStart, timeEnd));
+            logger.info("Count " + statisticRepo.countExcursions(timeStart, timeEnd));
             logger.info("Excursions " + excursionRepo.getExcursions(timeStart, timeEnd));
 
             excursion2 = new Excursion((long) 1, "Екскурсія2", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), worker2, rooms);
@@ -197,7 +198,8 @@ public class TestHibernate {
     @Test
     public void testTotalWorkingTimeByEachWorker() {
         StatisticRepo statisticRepo = new StatisticRepo();
-        List<Object[]> results = statisticRepo.totalWorkingTimeByEachWorker();
+        List<Object[]> results = statisticRepo.totalWorkingTimeByEachWorker(Timestamp.valueOf("2020-02-01 10:00:00"),
+                Timestamp.valueOf("2020-02-26 12:00:00"));
         for (Object[] arr : results) {
             logger.info(Arrays.toString(arr));
         }

@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.jboss.logging.Logger;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
@@ -56,9 +57,10 @@ public class StatisticRepo extends Repo {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        String hql = "SELECT count(e.worker), w.name FROM Excursion e " +
-                "JOIN e.worker w WHERE w.position = :position GROUP BY w.id";
-      
+        String hql = "SELECT count(e.id), w.name FROM Excursion e " +
+                "JOIN e.worker w WHERE w.position = :position" +
+                " GROUP BY w.id ORDER BY count(e.id) DESC";
+
         Query query = session.createQuery(hql);
         query.setParameter("position", Positions.TOURGUIDE);
 
@@ -75,16 +77,20 @@ public class StatisticRepo extends Repo {
         return results;
     }
 
-    public List<Object[]> totalWorkingTimeByEachWorker() {
+    public List<Object[]> totalWorkingTimeByEachWorker(Timestamp from, Timestamp to) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        String hql = "SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(e.time_end)) - SUM(TIME_TO_SEC(e.time_start))) " +
-                "as total_time, " +
-                "w.name as worker_name FROM Excursion e " +
-                "JOIN e.worker w WHERE w.position = :position GROUP BY w.id";
+        String hql = "SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(e.time_end)) " +
+                "- SUM(TIME_TO_SEC(e.time_start))), " +
+                "w.name FROM Excursion e " +
+                "JOIN e.worker w WHERE w.position = :position AND " +
+                "e.time_start >= :from AND e.time_end <= :to GROUP BY w.id";
+
         Query query = session.createQuery(hql);
         query.setParameter("position", Positions.TOURGUIDE);
+        query.setParameter("from", from);
+        query.setParameter("to", to);
 
         List<Object[]> results = query.getResultList();
 
@@ -97,6 +103,24 @@ public class StatisticRepo extends Repo {
         session.close();
 
         return results;
+    }
+
+    public Long countExcursions(Timestamp from, Timestamp to) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String hql = "SELECT count(e.id) FROM Excursion e " +
+                "WHERE e.time_start >= :from AND e.time_end <= :to";
+        Query query = session.createQuery(hql);
+        query.setParameter("from", from);
+        query.setParameter("to", to);
+
+        Long result = (Long) query.uniqueResult();
+        logger.info("Count excursions from " + from.toString() + " to " + to.toString() + " is " + result.toString());
+        session.getTransaction().commit();
+        session.close();
+
+        return result;
     }
 
 }

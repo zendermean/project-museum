@@ -29,11 +29,12 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item text-secondary" href="/stat">All statistics</a>
-
                         <div class="dropdown-divider text-white"></div>
-
                         <a class="dropdown-item text-secondary" href="/statByTechnique">By Technique</a>
                         <a class="dropdown-item text-secondary" href="/statByMaterial">By Material</a>
+                        <a class="dropdown-item text-secondary" href="/statByTourguides">By Tourguides</a>
+                        <div class="dropdown-divider text-white"></div>
+                        <a class="dropdown-item text-secondary" href="/statByCountOfExcursions">By Excursions</a>
                     </div>
                 </li>
                 <li class="nav-item">
