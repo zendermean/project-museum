@@ -10,6 +10,7 @@
 </div>
 <body>
 <div align="center">
+    <hr class="bg-dark">
     <h3>Count of all excursions by period</h3>
     <c:if test="${not empty countExcursions}">
         <h3 class="text-success">Excursions were conducted: ${countExcursions}</h3>

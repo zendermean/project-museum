@@ -9,6 +9,7 @@
 </div>
 <body>
 <div align="center">
+    <hr class="bg-dark">
     <h3>Total working time of tourguides by period</h3>
     <form id="totalWorkingTime" method="get" action="/statTotalWorkingTimeByEachWorker">
         <hr class="bg-dark">
