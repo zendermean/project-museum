@@ -1,7 +1,5 @@
 package servlets;
 
-import entity.Excursion;
-import entity.Worker;
 import repository.StatisticRepo;
 import services.TimeService;
 
@@ -13,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Set;
 
 @WebServlet({"/stat", "/statByTechnique", "/statByMaterial",
         "/statByCountOfExcursions", "/statByTourguides",
@@ -58,7 +55,7 @@ public class StatisticServlet extends HttpServlet {
 
         if (!TimeService.isCorrect(from, to)) {
             req.setAttribute("message", "Please input correct date");
-            req.getRequestDispatcher("pages/AllStat.jsp").forward(req, resp);
+            req.getRequestDispatcher("pages/countExcursionsByPeriod.jsp").forward(req, resp);
         }
 
         Long countExcursions = statisticRepo.countExcursions(from, to);
@@ -93,7 +90,7 @@ public class StatisticServlet extends HttpServlet {
 
         if (!TimeService.isCorrect(from, to)) {
             req.setAttribute("message", "Please input correct date");
-            req.getRequestDispatcher("pages/AllStat.jsp").forward(req, resp);
+            req.getRequestDispatcher("pages/totalWorkingTimeTourguide.jsp").forward(req, resp);
         }
 
         List<Object[]> list = statisticRepo.totalWorkingTimeByEachWorker(from, to);
